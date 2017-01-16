@@ -82,28 +82,36 @@ def show_150(input):
 
 lista_adresow = {
 
-'SF WP' : 'http://www.sportowefakty.wp.pl/',
-'WP KOBIETA' : 'http://www.kobieta.wp.pl/',
-'WP OPINIE' : 'http://www.opinie.wp.pl/',
-'ALLERGRO' : 'http://www.allegro.pl/',
-'AD' : 'http://www.ad.nl',
-'Wyborcza' : 'http://www.wyborcza.pl',
-'Gratka' : 'http://www.gratka.pl',
-'Stooq' : 'http://www.stooq.pl',
-'Interia' : 'http://www.interia.pl',
-'Trójmiasto' : 'http://www.trojmiasto.pl',
+'0 SG WP' : 'http://www.wp.pl/',
+'1 ALLEGRO' : 'http://www.allegro.pl/',
+'2 AD' : 'http://www.ad.nl',
+'3 Wyborcza' : 'http://www.wyborcza.pl',
+'4 Gratka' : 'http://www.gratka.pl',
+'5 Stooq' : 'http://www.stooq.pl',
+'6 Interia' : 'http://www.interia.pl',
+'7 Trójmiasto' : 'http://www.trojmiasto.pl',
+'8 Facebook' : 'http://www.facebook.com',
+'9 Wakacje' : 'http://www.wakacje.pl',
 
 }
 
-input = lista_adresow['Interia']
+print "\nWitaj w programie traffic_analyzer drogi użytkowniku.\n"
+print "Oto lista urli do wyboru:\n"
+show_urls(lista_adresow)
+print "Wybierz nr z listy url:\n"
+
+user_choice = raw_input()
+user_choice = int(user_choice)
+list = lista_adresow.values()
+input = list[user_choice]
 r = requests.get(input)
 t = r.text
 
-print "Witaj drogi użytkowniku.\n"
-print "Oto lista urli do wyboru:\n"
-show_urls(lista_adresow)
-print "Teraz sprawdzam taki url:\n"
+print "Wybrałeś nr:"
+print user_choice
 print (input)
+print "Wciśnij enter"
+confirm = raw_input()
 print "A teraz pokaze 150 pierwszych znakow z treści:\n"
 show_150(input)
 print "Teraz kolej czas na nagłówki:"

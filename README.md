@@ -1,5 +1,9 @@
 # traffic_analyzer
 
+# ver. 0.0.2
+
+mozliwa interakcja z uzytkownikiem - wybor urla do analizy
+
 # ver. 0.0.1
 
 narzędzie do szeroko pojętej analizy ruchu sieciowego.
