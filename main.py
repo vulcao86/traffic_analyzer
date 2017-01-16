@@ -7,23 +7,10 @@ import urllib2
 import requests
 import re
 
+def show_urls(lista_adresow):
 
-
-
-def show_urls():
-
-    # lista urli - sparametryzowac to ASAP
-    print"\
-    'http://www.sportowefakty.wp.pl/'\n \
-    'http://www.kobieta.wp.pl/'\n \
-    'http://www.opinie.wp.pl/'\n \
-    'http://www.sportowefakty.wp.pl/'\n \
-    'http://www.allegro.pl/'\n \
-    'http://www.ad.nl'\n \
-    'http://www.wyborcza.pl'\n \
-    'http://www.gratka.pl'\n \
-    'http://www.stooq.pl'\n \
-    'http://www.interia.pl'\n"
+    for k, v in lista_adresow.iteritems():
+        print k, v
 
 def check_headers(r):
     """""module fo r checking some headers dependencies"""
@@ -75,28 +62,56 @@ def search_for_polish_adjectives(t):
     for m in re.finditer(r"\w+owy", t):
         print '%02d-%02d: %s' % (m.start(), m.end(), m.group(0))
 
-def show_headers(input2):
-    print "pokazuje naglowki:"
-    resp = requests.head(input2)
-    print (resp.status_code, resp.text, resp.headers)  # to pokazuje kompletne headersy dla urla
+def show_headers(input):
+    print "Probuje odczytac naglowki..."
+    try:
+        resp = requests.head(input)
+        print (resp.status_code, resp.text, resp.headers)
+    except Exception:
+        print "Niestety nie udało się odczytać nagłówków"
 
-def show_150(input2):
-    opener = urllib2.urlopen(input2)
-    print (opener.read(150)) # printnij 150 pierwszych znakow odpowiedzi
 
-# ZMIENNEEEEEEEEEEE!!!!!!!!!!!!!1111111111
-input2 = 'http://www.trojmiasto.pl'
-r = requests.get(input2)
+def show_150(input):
+    try:
+        opener = urllib2.urlopen(input)
+        print (opener.read(150))
+    except:
+        "cos sie popsulo"
+
+
+
+lista_adresow = {
+
+'SF WP' : 'http://www.sportowefakty.wp.pl/',
+'WP KOBIETA' : 'http://www.kobieta.wp.pl/',
+'WP OPINIE' : 'http://www.opinie.wp.pl/',
+'ALLERGRO' : 'http://www.allegro.pl/',
+'AD' : 'http://www.ad.nl',
+'Wyborcza' : 'http://www.wyborcza.pl',
+'Gratka' : 'http://www.gratka.pl',
+'Stooq' : 'http://www.stooq.pl',
+'Interia' : 'http://www.interia.pl',
+'Trójmiasto' : 'http://www.trojmiasto.pl',
+
+}
+
+input = lista_adresow['Interia']
+r = requests.get(input)
 t = r.text
-print "Witaj drogi użytkowniku."
-print "Oto lista urli do wyboru:"
-show_urls()
-print "Teraz sprawdzam taki url:"
-print (input2)
-print "A teraz pokaze 150 pierwszych znakow z tresci html"
-show_150(input2)
+
+print "Witaj drogi użytkowniku.\n"
+print "Oto lista urli do wyboru:\n"
+show_urls(lista_adresow)
+print "Teraz sprawdzam taki url:\n"
+print (input)
+print "A teraz pokaze 150 pierwszych znakow z treści:\n"
+show_150(input)
 print "Teraz kolej czas na nagłówki:"
-show_headers(input2)
+show_headers(input)
+print "Stestujmy je:"
+check_headers(r)
+print "Wyszukajmy przymiotnikow w tresci."
+search_for_polish_adjectives(t)
 print "a na deser ciasteczka:"
 show_cookies(r)
 print "KONIEC"
