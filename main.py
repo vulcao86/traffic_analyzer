@@ -6,7 +6,12 @@ __author__ ="pslupczewski"
 import urllib2
 import requests
 import re
+import time
 
+
+
+
+# /////////// moduly do wywyolywania na wczytanych danych
 def show_urls(lista_adresow):
 
     for k, v in lista_adresow.iteritems():
@@ -60,7 +65,9 @@ def search_for_polish_adjectives(t):
     """"module for searching polish adjectives in content
     effect is displayed with byte postion """
     for m in re.finditer(r"\w+owy", t):
-        print '%02d-%02d: %s' % (m.start(), m.end(), m.group(0))
+        # print '%02d-%02d: %s' % (m.start(), m.end(), m.group(0))
+        print '%s' % (m.group(0))
+
 
 def show_headers(input):
     print "Probuje odczytac naglowki..."
@@ -78,48 +85,67 @@ def show_150(input):
     except:
         "cos sie popsulo"
 
+# koniec modułów
 
 
 lista_adresow = {
 
-'0 SG WP' : 'http://www.wp.pl/',
-'1 ALLEGRO' : 'http://www.allegro.pl/',
-'2 AD' : 'http://www.ad.nl',
-'3 Wyborcza' : 'http://www.wyborcza.pl',
-'4 Gratka' : 'http://www.gratka.pl',
-'5 Stooq' : 'http://www.stooq.pl',
-'6 Interia' : 'http://www.interia.pl',
-'7 Trójmiasto' : 'http://www.trojmiasto.pl',
-'8 Facebook' : 'http://www.facebook.com',
-'9 Wakacje' : 'http://www.wakacje.pl',
+'SG WP' : 'http://www.wp.pl/',
+'ALLEGRO' : 'http://www.allegro.pl/',
+'AD' : 'http://www.ad.nl',
+'Wyborcza' : 'http://www.reuters.com',
+'Gratka' : 'http://www.gratka.pl',
+'Stooq' : 'http://www.stooq.pl',
+'Interia' : 'http://www.interia.pl',
+'Trójmiasto' : 'http://www.trojmiasto.pl',
+'Facebook' : 'http://www.facebook.com',
+'Wakacje' : 'http://www.wakacje.pl',
 
 }
+
+# ===================== poczatek logiki programu
+
+# greet user
 
 print "\nWitaj w programie traffic_analyzer drogi użytkowniku.\n"
 print "Oto lista urli do wyboru:\n"
 show_urls(lista_adresow)
-print "Wybierz nr z listy url:\n"
+print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
+
+# wczytaj dane
 
 user_choice = raw_input()
 user_choice = int(user_choice)
 list = lista_adresow.values()
+
+# dokonaj wyobru elementu na liscie powstalej z wartosci zmiennej lista_adresów
+
 input = list[user_choice]
+
 r = requests.get(input)
+# requesty na inpucie
+# robimy z tego tekst
 t = r.text
 
 print "Wybrałeś nr:"
 print user_choice
 print (input)
 print "Wciśnij enter"
-confirm = raw_input()
 print "A teraz pokaze 150 pierwszych znakow z treści:\n"
 show_150(input)
 print "Teraz kolej czas na nagłówki:"
+time.sleep(1)
 show_headers(input)
+time.sleep(1)
 print "Stestujmy je:"
 check_headers(r)
+time.sleep(1)
 print "Wyszukajmy przymiotnikow w tresci."
+time.sleep(1)
 search_for_polish_adjectives(t)
 print "a na deser ciasteczka:"
+time.sleep(1)
 show_cookies(r)
 print "KONIEC"
+print "wiecej?"
+print "wiecej?"
