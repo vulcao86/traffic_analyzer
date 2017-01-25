@@ -163,6 +163,7 @@ time.sleep(1)
 print "Wyszukajmy przymiotnikow w tresci."
 time.sleep(1)
 search_for_polish_adjectives(t)
+logging.warning(search_for_polish_adjectives(t))
 print "a na deser ciasteczka:"
 time.sleep(1)
 show_cookies(r)
