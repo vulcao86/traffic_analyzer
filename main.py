@@ -17,6 +17,7 @@ def show_urls(lista_adresow):
     for k, v in lista_adresow.iteritems():
         print k, v
 
+
 def check_headers(r):
     """""module fo r checking some headers dependencies"""
     try:
@@ -85,9 +86,14 @@ def show_150(input):
     except: # except na error urlliba
         "cos sie popsulo"
 
+
 def time_tick():
     time.sleep(1)
 
+
+def log_time(tak):
+    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+    logging.warning(tak)
 # koniec modułów
 
 
@@ -120,6 +126,11 @@ print "Oto lista urli do wyboru:\n"
 show_urls(lista_adresow)
 print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
 
+# zaloguj uruchomienie
+
+logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+logging.warning('Program uruchomiono.')
+
 # wczytaj dane
 
 user_choice = raw_input()
@@ -129,7 +140,8 @@ print list
 # dokonaj wyobru elementu na liscie powstalej z wartosci zmiennej lista_adresów
 
 input = list[user_choice]
-
+# input na sztywno override
+input = 'http://www.reuters.com'
 r = requests.get(input)
 # requesty na inpucie
 # robimy z tego tekst
@@ -154,6 +166,10 @@ search_for_polish_adjectives(t)
 print "a na deser ciasteczka:"
 time.sleep(1)
 show_cookies(r)
+ciacha = show_cookies(r)
+log_time(str(ciacha))
+log_time("powinny byc ciacha...")
+"ktore zalogowalem"
 print "wiecej? ( wpisz tak )"
 
 user_choice_yesno = raw_input()
@@ -162,10 +178,7 @@ if user_choice_yesno == "tak":
     print "ok, wyświetlam treść"
     time_tick()
     display_content_of_source(r)
-    logging.basicConfig(filename='example.log', level=logging.DEBUG)
-    logging.info('Zapis do loga')
-    logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-    logging.warning('is when this event was logged.')
+    log_time("tak")
 else:
     print "ok nie to nie"
 print "KONIEC"
