@@ -7,7 +7,7 @@ import urllib2
 import requests
 import re
 import time
-
+import logging
 
 
 
@@ -82,8 +82,11 @@ def show_150(input):
     try:
         opener = urllib2.urlopen(input)
         print (opener.read(150))
-    except:
+    except: # except na error urlliba
         "cos sie popsulo"
+
+def time_tick():
+    time.sleep(1)
 
 # koniec modułów
 
@@ -93,13 +96,18 @@ lista_adresow = {
 'SG WP' : 'http://www.wp.pl/',
 'ALLEGRO' : 'http://www.allegro.pl/',
 'AD' : 'http://www.ad.nl',
-'Wyborcza' : 'http://www.reuters.com',
+'Reuters' : 'http://www.reuters.com',
 'Gratka' : 'http://www.gratka.pl',
 'Stooq' : 'http://www.stooq.pl',
 'Interia' : 'http://www.interia.pl',
 'Trójmiasto' : 'http://www.trojmiasto.pl',
 'Facebook' : 'http://www.facebook.com',
-'Wakacje' : 'http://www.wakacje.pl',
+'Onet' : 'http://www.onet.pl',
+'Twitter' : 'http://www.twitter.com',
+'Google' : 'http://www.google.com',
+'Moja PG' : 'http://moja.pg.gda.pl/',
+'Reddit' : 'http://www.reddit.com',
+'Baidu' : 'http://www.baidu.com',
 
 }
 
@@ -117,7 +125,7 @@ print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
 user_choice = raw_input()
 user_choice = int(user_choice)
 list = lista_adresow.values()
-
+print list
 # dokonaj wyobru elementu na liscie powstalej z wartosci zmiennej lista_adresów
 
 input = list[user_choice]
@@ -146,6 +154,18 @@ search_for_polish_adjectives(t)
 print "a na deser ciasteczka:"
 time.sleep(1)
 show_cookies(r)
+print "wiecej? ( wpisz tak )"
+
+user_choice_yesno = raw_input()
+
+if user_choice_yesno == "tak":
+    print "ok, wyświetlam treść"
+    time_tick()
+    display_content_of_source(r)
+    logging.basicConfig(filename='example.log', level=logging.DEBUG)
+    logging.info('Zapis do loga')
+    logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.warning('is when this event was logged.')
+else:
+    print "ok nie to nie"
 print "KONIEC"
-print "wiecej?"
-print "wiecej?"
