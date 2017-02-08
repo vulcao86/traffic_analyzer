@@ -18,6 +18,18 @@ def show_urls(lista_adresow):
         print k, v
 
 
+def headers():
+
+    dict_headers = {
+    'X-Served-By',
+    'Server',
+    'Connection',
+    'Cache-Control',
+    'Date',
+    'Content-Type'
+    }
+    print dict_headers
+
 def check_headers(r):
     """""module fo r checking some headers dependencies"""
     try:
@@ -121,7 +133,9 @@ lista_adresow = {
 
 # greet user
 
-print "\nWitaj w programie traffic_analyzer drogi użytkowniku.\n"
+print "\n\n\n\n\n\n"
+print "\t\t\t\t\t\t\tWitaj w programie traffic_analyzer drogi użytkowniku.\n"
+print "\n\n\n\n\n\n"
 print "Oto lista urli do wyboru:\n"
 show_urls(lista_adresow)
 print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
@@ -133,13 +147,13 @@ logging.warning('Program uruchomiono.')
 
 # wczytaj dane
 
-user_choice = raw_input()
-user_choice = int(user_choice)
+# user_choice = raw_input()
+# user_choice = int(user_choice)
 list = lista_adresow.values()
 print list
 # dokonaj wyobru elementu na liscie powstalej z wartosci zmiennej lista_adresów
 
-input = list[user_choice]
+# input = list[user_choice]
 # input na sztywno override
 input = 'http://www.reuters.com'
 r = requests.get(input)
@@ -148,30 +162,59 @@ r = requests.get(input)
 t = r.text
 
 print "Wybrałeś nr:"
-print user_choice
+# tak
+# print user_choice
 print (input)
 print "Wciśnij enter"
+#            /     // //////////// MAIN |=low
+
 print "A teraz pokaze 150 pierwszych znakow z treści:\n"
 show_150(input)
+# debugg headers
+print "debugggggg"
+headers()
+print "dawaj instance!"
+headers_instance = headers()
+print headers_instance
+try:
+    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+    logging.warning("some moar lloggging!!!!1111oneeeone")
+    print "zapisalem headersy do pliku {0}".format("example.log")
+except:
+    print "fail"
+    logging.warning("some wtf except")
+#
+
+print "debugggggg"
+
+print "\n\n\n"
 print "Teraz kolej czas na nagłówki:"
 time.sleep(1)
 show_headers(input)
 time.sleep(1)
+print "\n\n\n"
 print "Stestujmy je:"
 check_headers(r)
 time.sleep(1)
+print "\n\n\n"
 print "Wyszukajmy przymiotnikow w tresci."
 time.sleep(1)
-search_for_polish_adjectives(t)
-logging.warning(search_for_polish_adjectives(t))
+try:
+    search_for_polish_adjectives(t)
+    logging.warning(search_for_polish_adjectives(t))
+except:
+    print "pusto?"
+print "\n\n\n"
 print "a na deser ciasteczka:"
 time.sleep(1)
 show_cookies(r)
 ciacha = show_cookies(r)
 log_time(str(ciacha))
 log_time("powinny byc ciacha...")
-"ktore zalogowalem"
-print "wiecej? ( wpisz tak )"
+print "ktore zalogowalem"
+print "Wyświetlić treść? ( wpisz tak )"
+print "\n\n\n"
+
 
 user_choice_yesno = raw_input()
 
