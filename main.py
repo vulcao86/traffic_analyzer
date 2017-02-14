@@ -130,6 +130,7 @@ lista_adresow = {
 
 }
 
+
 # ===================== poczatek logiki programu
 
 # greet user
@@ -156,10 +157,12 @@ print list
 
 # input = list[user_choice]
 # input na sztywno override
-input = 'http://www.reuters.com'
-
-# r = requests.get(input)
-# t = r.text
+input = 'http://www.wp.pl'
+try:
+    r = requests.get(input)
+    t = r.text
+except:
+    print "requests nie dziala"
 # requesty na inpucie
 # robimy z tego tekst
 
@@ -198,7 +201,11 @@ show_headers(input)
 time.sleep(1)
 print "\n\n\n"
 print "Stestujmy je:"
-check_headers(r)
+try:
+    check_headers(r)
+    logging.warning(check_headers())
+except:
+    "nie ma co testować..."
 time.sleep(1)
 print "\n\n\n"
 print "Wyszukajmy przymiotnikow w tresci."
@@ -208,16 +215,21 @@ try:
     logging.warning(search_for_polish_adjectives(t))
 except:
     print "pusto?"
+print "zalogujmy je:"
+logging.warning(search_for_polish_adjectives(t))
 print "\n\n\n"
 print "a na deser ciasteczka:"
 time.sleep(1)
-show_cookies(r)
-ciacha = show_cookies(r)
-log_time(str(ciacha))
-log_time("powinny byc ciacha...")
-print "ktore zalogowalem"
-print "Wyświetlić treść? ( wpisz tak )"
-print "\n\n\n"
+try:
+    show_cookies(r)
+    ciacha = show_cookies(r)
+    log_time(str(ciacha))
+    log_time("powinny byc ciacha...")
+    print "ktore zalogowalem"
+except:
+    print "nie ma ciach"
+    print "Wyświetlić treść? ( wpisz tak )"
+    print "\n\n\n"
 
 
 user_choice_yesno = raw_input()
@@ -225,7 +237,10 @@ user_choice_yesno = raw_input()
 if user_choice_yesno == "tak":
     print "ok, wyświetlam treść"
     time_tick()
-    display_content_of_source(r)
+    try:
+        display_content_of_source(r)
+    except:
+        print "nei dizala requests wiec nie ma tresci"
     log_time("tak")
 else:
     print "ok nie to nie"
