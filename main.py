@@ -30,7 +30,7 @@ def headers():
     }
 
 def check_headers(r):
-    """""module fo r checking some headers dependencies"""
+    """""module for checking some headers dependencies"""
     try:
         r.headers['X-Served-By']
         print "['X-Served-By']", r.headers['X-Served-By']
@@ -131,9 +131,7 @@ lista_adresow = {
 
 # greet user
 
-print "\n\n\n\n\n\n"
 print "\t\t\t\t\t\t\tWitaj w programie traffic_analyzer drogi użytkowniku.\n"
-print "\n\n\n\n\n\n"
 print "Oto lista urli do wyboru:\n"
 show_urls(lista_adresow)
 print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
@@ -145,91 +143,32 @@ logging.warning('= = = = = = Program run man.')
 
 # wczytaj dane
 
-# user_choice = raw_input()
-# user_choice = int(user_choice)
-list = lista_adresow.values()
-print list
-# dokonaj wyobru elementu na liscie powstalej z wartosci zmiennej lista_adresów
+for adres in lista_adresow.items():
+    print adres[1]
+    hard_input = adres[1]
 
-# input = list[user_choice]
-# input na sztywno override
-hard_input = 'http://www.facebook.com'
-try:
-    r = requests.get(hard_input)
-    t = r.text
-except:
-    print "requests nie dziala"
-# requesty na inpucie
-# robimy z tego tekst
-
-
-print "Wybrałeś nr:"
-# tak
-# print user_choice
-print (hard_input)
-print "Wciśnij enter"
-#            /     // //////////// MAIN |=low
+    try:
+        r = requests.get(hard_input)
+        t = r.text
+    except:
+        print "requests nie dziala"
+    print "Stestujmy je:\n"
+    try:
+        headers_instance = check_headers(r)
+        logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+        logging.warning("checking")
+        logging.warning(hard_input)
+        logging.warning(headers_instance)
+        log_time(tak)
+    except:
+        print "nie ma co testować..."
 
 print "A teraz pokaze 150 pierwszych znakow z treści:\n"
 show_150(hard_input)
-# debugg headers
-print "debugggggg"
-headers()
-print "dawaj instance!"
+
 headers_instance = headers()
-print headers_instance
-print "było coś?"
 
-
-print "\n\n\n"
-print "Teraz kolej czas na nagłówki:"
 time.sleep(1)
 show_headers(hard_input)
 time.sleep(1)
-print "\n\n\n"
-print "Stestujmy je:"
-try:
-    headers_instance = check_headers(r)
-    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-    print "{0} zapodaje ".format(headers_instance)
-    logging.warning("checking")
-    logging.warning(hard_input)
-    logging.warning(headers_instance)
-    log_time(tak)
-except:
-    "nie ma co testować..."
-time.sleep(1)
-print "\n\n\n"
-print "Wyszukajmy przymiotnikow w tresci."
-time.sleep(1)
-try:
-    adjectives_instance = search_for_polish_adjectives(t)
-    print "AAAAAAAAAAAAAAAAaaaaaaaaaaaaaaa!!!!!!!!!!!!!!!1111111111111111111"
-except:
-    print "pusto?"
-print "zalogujmy je:"
-print "\n\n\n"
-print "a na deser ciasteczka:"
-time.sleep(1)
-try:
-    print ("powinny byc ciacha...")
-    print "ktore zalogowalem"
-except:
-    print "nie ma ciach"
-    print "Wyświetlić treść? ( wpisz tak )"
-    print "\n\n\n"
-"""
-print "wpisz /'tak/'"
-user_choice_yesno = raw_input()
 
-if user_choice_yesno == "tak":
-    print "ok, wyświetlam treść"
-    time_tick()
-    try:
-        display_content_of_source(r)
-    except:
-        print "nei dizala requests wiec nie ma tresci"
-else:
-    print "ok nie to nie"
-"""
-print "KONIEC"
