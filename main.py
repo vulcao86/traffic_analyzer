@@ -28,8 +28,6 @@ def headers():
     'Date',
     'Content-Type'
     }
-    print dict_headers
-    return dict_headers
 
 def check_headers(r):
     """""module fo r checking some headers dependencies"""
@@ -64,6 +62,8 @@ def check_headers(r):
     except Exception:
         print "content-typer error"
 
+    print r.headers
+    return r.headers
 
 def show_cookies(r):
     """"module for preview of cookies set by request"""
@@ -80,8 +80,8 @@ def search_for_polish_adjectives(t):
     effect is displayed with byte postion """
     for m in re.finditer(r"\w+owy", t):
         # print '%02d-%02d: %s' % (m.start(), m.end(), m.group(0))
-        print '%s' % (m.group(0))
-
+        a = '%s' % (m.group(0))
+        print a
 
 def show_headers(input):
     print "Probuje odczytac naglowki..."
@@ -103,10 +103,6 @@ def show_150(input):
 def time_tick():
     time.sleep(1)
 
-
-def log_time(tak):
-    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-    logging.warning(tak)
 # koniec modułów
 
 
@@ -145,7 +141,7 @@ print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
 # zaloguj uruchomienie
 
 logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-logging.warning('===================Program uruchomiono.')
+logging.warning('= = = = = = Program run man.')
 
 # wczytaj dane
 
@@ -157,9 +153,9 @@ print list
 
 # input = list[user_choice]
 # input na sztywno override
-input = 'http://www.wp.pl'
+hard_input = 'http://www.facebook.com'
 try:
-    r = requests.get(input)
+    r = requests.get(hard_input)
     t = r.text
 except:
     print "requests nie dziala"
@@ -170,12 +166,12 @@ except:
 print "Wybrałeś nr:"
 # tak
 # print user_choice
-print (input)
+print (hard_input)
 print "Wciśnij enter"
 #            /     // //////////// MAIN |=low
 
 print "A teraz pokaze 150 pierwszych znakow z treści:\n"
-show_150(input)
+show_150(hard_input)
 # debugg headers
 print "debugggggg"
 headers()
@@ -183,27 +179,23 @@ print "dawaj instance!"
 headers_instance = headers()
 print headers_instance
 print "było coś?"
-try:
-    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-    logging.warning(headers_instance)
-    print "zapisalem headersy do pliku {0}".format("example.log")
-except:
-    print "fail"
-    logging.warning("some wtf except")
-#
 
-print "debugggggg"
 
 print "\n\n\n"
 print "Teraz kolej czas na nagłówki:"
 time.sleep(1)
-show_headers(input)
+show_headers(hard_input)
 time.sleep(1)
 print "\n\n\n"
 print "Stestujmy je:"
 try:
-    check_headers(r)
-    logging.warning(check_headers())
+    headers_instance = check_headers(r)
+    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+    print "{0} zapodaje ".format(headers_instance)
+    logging.warning("checking")
+    logging.warning(hard_input)
+    logging.warning(headers_instance)
+    log_time(tak)
 except:
     "nie ma co testować..."
 time.sleep(1)
@@ -211,27 +203,23 @@ print "\n\n\n"
 print "Wyszukajmy przymiotnikow w tresci."
 time.sleep(1)
 try:
-    search_for_polish_adjectives(t)
-    logging.warning(search_for_polish_adjectives(t))
+    adjectives_instance = search_for_polish_adjectives(t)
+    print "AAAAAAAAAAAAAAAAaaaaaaaaaaaaaaa!!!!!!!!!!!!!!!1111111111111111111"
 except:
     print "pusto?"
 print "zalogujmy je:"
-logging.warning(search_for_polish_adjectives(t))
 print "\n\n\n"
 print "a na deser ciasteczka:"
 time.sleep(1)
 try:
-    show_cookies(r)
-    ciacha = show_cookies(r)
-    log_time(str(ciacha))
-    log_time("powinny byc ciacha...")
+    print ("powinny byc ciacha...")
     print "ktore zalogowalem"
 except:
     print "nie ma ciach"
     print "Wyświetlić treść? ( wpisz tak )"
     print "\n\n\n"
-
-
+"""
+print "wpisz /'tak/'"
 user_choice_yesno = raw_input()
 
 if user_choice_yesno == "tak":
@@ -241,7 +229,7 @@ if user_choice_yesno == "tak":
         display_content_of_source(r)
     except:
         print "nei dizala requests wiec nie ma tresci"
-    log_time("tak")
 else:
     print "ok nie to nie"
+"""
 print "KONIEC"
