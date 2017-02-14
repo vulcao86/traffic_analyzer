@@ -29,6 +29,7 @@ def headers():
     'Content-Type'
     }
     print dict_headers
+    return dict_headers
 
 def check_headers(r):
     """""module fo r checking some headers dependencies"""
@@ -143,7 +144,7 @@ print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
 # zaloguj uruchomienie
 
 logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-logging.warning('Program uruchomiono.')
+logging.warning('===================Program uruchomiono.')
 
 # wczytaj dane
 
@@ -156,10 +157,12 @@ print list
 # input = list[user_choice]
 # input na sztywno override
 input = 'http://www.reuters.com'
-r = requests.get(input)
+
+# r = requests.get(input)
+# t = r.text
 # requesty na inpucie
 # robimy z tego tekst
-t = r.text
+
 
 print "Wybrałeś nr:"
 # tak
@@ -176,9 +179,10 @@ headers()
 print "dawaj instance!"
 headers_instance = headers()
 print headers_instance
+print "było coś?"
 try:
     logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-    logging.warning("some moar lloggging!!!!1111oneeeone")
+    logging.warning(headers_instance)
     print "zapisalem headersy do pliku {0}".format("example.log")
 except:
     print "fail"
