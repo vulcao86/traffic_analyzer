@@ -181,7 +181,12 @@ lista_adresow = {
 'Moja PG' : 'http://moja.pg.gda.pl/',
 'Reddit' : 'http://www.reddit.com',
 'Baidu' : 'http://www.baidu.com',
-
+'Ebay' : 'http://www.ebay.com',
+'Amazon' : 'http://www.amazon.com',
+'Wybrzeze24' : 'http://www.wybrzeze24.pl',
+'Youtube' : 'http://www.youtube.com',
+'OLX' : 'http://www.olx.pl',
+'Pracuj' : 'http://www.pracuj.pl'
 }
 
 lista_adresow_wp = {
@@ -224,7 +229,7 @@ logging.warning('= = = = = = Program run man.')
 
 # wczytaj dane
 
-for adres in lista_adresow_banki.items():
+for adres in lista_adresow.items():
     print adres[1]
     hard_input = adres[1]
 
