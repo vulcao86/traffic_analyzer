@@ -61,6 +61,29 @@ def check_headers(r):
         print "['Content-Type']", r.headers['Content-Type']
     except Exception:
         print "content-typer error"
+    try:
+        r.headers['Status']
+        print "['Status']", r.headers['Status']
+    except Exception:
+        print "Status error"
+    try:
+        r.headers['x-response-time']
+        print "['x-response-time']", r.headers['x-response-time']
+    except Exception:
+        print "'x-response-time' error"
+
+    """2017 - 02 - 15
+    00:01:37, 371
+    {'status': '200 OK', 'x-response-time': '139', 'strict-transport-security': 'max-age=631138519',
+     'x-twitter-response-tags': 'BouncerCompliant', 'x-transaction': '00e4f6e400f12e66',
+     'x-content-type-options': 'nosniff', 'content-encoding': 'gzip', 'transfer-encoding': 'chunked',
+     'set-cookie': 'fm=0; Expires=Tue, 14 Feb 2017 23:01:35 GMT; Path=/; Domain=.twitter.com; Secure; HTTPOnly, _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCHQ93D5aAToMY3NyZl9p%250AZCIlNWMxZGI0NGQ5YTE3MTg4ZmUxYzE0OTQzYzczNTY2NjQ6B2lkIiUyMDlk%250AMjE4OGZlZTA3ZTE0YjcwNDQ1MWMzNzM0ZTYwMg%253D%253D--9e9fc6d0f016746f8bbb9e8fffa00f38fab2e539; Path=/; Domain=.twitter.com; Secure; HTTPOnly, ct0=b1f91c6dabb18dd5bb524b69c8988b81; Expires=Wed, 15 Feb 2017 05:01:45 GMT; Path=/; Domain=.twitter.com; Secure',
+     'expires': 'Tue, 31 Mar 1981 05:00:00 GMT', 'server': 'tsa_o', 'last-modified': 'Tue, 14 Feb 2017 23:01:45 GMT',
+     'x-xss-protection': '1; mode=block', 'x-connection-hash': 'c3243fba4b23ee5566385d89a642311a',
+     'x-ua-compatible': 'IE=edge,chrome=1', 'pragma': 'no-cache',
+     'cache-control': 'no-cache, no-store, must-revalidate, pre-check=0, post-check=0',
+     'date': 'Tue, 14 Feb 2017 23:01:45 GMT', 'x-frame-options': 'SAMEORIGIN',
+     'content-type': 'text/html;charset=utf-8'}"""
 
     print r.headers
     return r.headers
@@ -109,6 +132,7 @@ def time_tick():
 lista_adresow = {
 
 'SG WP' : 'http://www.wp.pl/',
+'SG WP epty redir' : 'http://www.wp.pl/?_adv_=emptyrmredir',
 'ALLEGRO' : 'http://www.allegro.pl/',
 'AD' : 'http://www.ad.nl',
 'Reuters' : 'http://www.reuters.com',
@@ -126,6 +150,25 @@ lista_adresow = {
 
 }
 
+lista_adresow_wp = {
+
+'SG WP' : 'http://www.wp.pl/',
+'SF WP' : 'http://www.sportowefakty.wp.pl/',
+'SFWP' : 'http://www.sportowefaktywp.pl/',
+'opinie' : 'http://www.opinie.wp.pl/',
+'Facet WP' : 'http://www.facet.wp.pl/',
+'SG WP empty redir' : 'http://www.wp.pl/?_adv_=emptyrmredir',
+'SG WP adstream' : 'http://adv.wp.pl/RM/ads/adstream_lx.ads/komorkomania.pl/index.html/L26/1222531184/x03/OasDefault/WP_GoogleADX_Blomedia_bill/rectangle_DFP_async674732.html/54372f383656695575576f414469796e?pvid=efd0531e716f8de85d21&pc=&cid=/&PWA_adbd=0&_RM_EMPTY_',
+
+}
+
+lista_adresow_banki = {
+
+'MBANK' : 'http://www.mbank.pl/',
+'WBK' : 'http://www.centrum24.pl/',
+'ING' : 'http://www.ing.pl/',
+
+}
 
 # ===================== poczatek logiki programu
 
@@ -134,6 +177,10 @@ lista_adresow = {
 print "\t\t\t\t\t\t\tWitaj w programie traffic_analyzer drogi użytkowniku.\n"
 print "Oto lista urli do wyboru:\n"
 show_urls(lista_adresow)
+print "Oto lista urli WP\n"
+show_urls(lista_adresow_wp)
+print "banki\n"
+show_urls(lista_adresow_banki)
 print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
 
 # zaloguj uruchomienie
@@ -143,17 +190,13 @@ logging.warning('= = = = = = Program run man.')
 
 # wczytaj dane
 
-for adres in lista_adresow.items():
+for adres in lista_adresow_banki.items():
     print adres[1]
     hard_input = adres[1]
 
     try:
         r = requests.get(hard_input)
         t = r.text
-    except:
-        print "requests nie dziala"
-    print "Stestujmy je:\n"
-    try:
         headers_instance = check_headers(r)
         logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
         logging.warning("checking")
