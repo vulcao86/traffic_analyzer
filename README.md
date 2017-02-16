@@ -1,5 +1,9 @@
 # traffic_analyzer
 
+# ver. 0.2.0
+
+logowanie informacji naglowkowych odwiedzanych stron z listy
+
 # ver. 0.1.0
 
 dodano logowanie do pliku przy uzyciu modulu logging
