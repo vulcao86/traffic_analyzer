@@ -29,8 +29,18 @@ def headers():
     'Content-Type'
     }
 
+def check_headers_nice(r, headers_to_be_checked):
+    """""module for checking some headers dependencies in loop for created list of headers"""
+
+    for header in headers_to_be_checked:
+        ad_hoc_headers_instance = r.headers(header)
+        print "{0} header has value {1}".format( header, ad_hoc_headers_instance)
+    print r.headers
+    return r.headers
+
 def check_headers(r):
     """""module for checking some headers dependencies"""
+
     try:
         r.headers['X-Served-By']
         print "['X-Served-By']", r.headers['X-Served-By']
@@ -71,19 +81,12 @@ def check_headers(r):
         print "['x-response-time']", r.headers['x-response-time']
     except Exception:
         print "'x-response-time' error"
+    try:
+        r.headers['X-CDN']
+        print "['X-CDN']", r.headers['X-CDN']
+    except Exception:
+        print "'X-CDN' error"
 
-    """2017 - 02 - 15
-    00:01:37, 371
-    {'status': '200 OK', 'x-response-time': '139', 'strict-transport-security': 'max-age=631138519',
-     'x-twitter-response-tags': 'BouncerCompliant', 'x-transaction': '00e4f6e400f12e66',
-     'x-content-type-options': 'nosniff', 'content-encoding': 'gzip', 'transfer-encoding': 'chunked',
-     'set-cookie': 'fm=0; Expires=Tue, 14 Feb 2017 23:01:35 GMT; Path=/; Domain=.twitter.com; Secure; HTTPOnly, _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCHQ93D5aAToMY3NyZl9p%250AZCIlNWMxZGI0NGQ5YTE3MTg4ZmUxYzE0OTQzYzczNTY2NjQ6B2lkIiUyMDlk%250AMjE4OGZlZTA3ZTE0YjcwNDQ1MWMzNzM0ZTYwMg%253D%253D--9e9fc6d0f016746f8bbb9e8fffa00f38fab2e539; Path=/; Domain=.twitter.com; Secure; HTTPOnly, ct0=b1f91c6dabb18dd5bb524b69c8988b81; Expires=Wed, 15 Feb 2017 05:01:45 GMT; Path=/; Domain=.twitter.com; Secure',
-     'expires': 'Tue, 31 Mar 1981 05:00:00 GMT', 'server': 'tsa_o', 'last-modified': 'Tue, 14 Feb 2017 23:01:45 GMT',
-     'x-xss-protection': '1; mode=block', 'x-connection-hash': 'c3243fba4b23ee5566385d89a642311a',
-     'x-ua-compatible': 'IE=edge,chrome=1', 'pragma': 'no-cache',
-     'cache-control': 'no-cache, no-store, must-revalidate, pre-check=0, post-check=0',
-     'date': 'Tue, 14 Feb 2017 23:01:45 GMT', 'x-frame-options': 'SAMEORIGIN',
-     'content-type': 'text/html;charset=utf-8'}"""
 
     print r.headers
     return r.headers
@@ -128,6 +131,37 @@ def time_tick():
 
 # koniec modułów
 
+headers_to_be_checked = {
+
+    'content-type'
+    'cache-control',
+    'Connection',
+    'Cache-Control',
+    'date',
+    'Date',
+    'Content-Type',
+    'x-response-time',
+    'X-CDN'
+    'X-XSS-Protection'
+    'strict-transport-security'
+    'x-twitter-response-tags',
+    'x-transaction',
+    'x-content-type-options',
+    'content-encoding',
+    'transfer-encoding',
+    'set-cookie',
+    'expires',
+    'server',
+    'last-modified',
+    'x-xss-protection',
+    'x-connection-hash',
+    'x-ua-compatible',
+    'pragma',
+    'x-frame-options',
+    'X-Served-By',
+    'Server',
+
+    }
 
 lista_adresow = {
 
