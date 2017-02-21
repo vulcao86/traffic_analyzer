@@ -209,6 +209,12 @@ lista_adresow_banki = {
 
 }
 
+sgwp = {
+
+'SG WP' : 'http://www.wp.pl/'
+
+}
+
 # ===================== poczatek logiki programu
 
 # greet user
@@ -225,23 +231,34 @@ print "Wybierz nr z listy url (numeracja zaczyna sie od 0):\n"
 # zaloguj uruchomienie
 
 logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-logging.warning('= = = = = = Program run man.')
+logging.warning('= = = = = = = = = = = = = = = = = = Program run man.')
 
 # wczytaj dane
-
-for adres in lista_adresow.items():
+list_in_use = lista_adresow_wp
+for adres in list_in_use.items():
     print adres[1]
     hard_input = adres[1]
 
     try:
         r = requests.get(hard_input)
         t = r.text
-        headers_instance = check_headers(r)
-        logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-        logging.warning("checking")
-        logging.warning(hard_input)
-        logging.warning(headers_instance)
-        log_time(tak)
+        try:
+            headers_instance = check_headers(r)
+            logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+            logging.debug("testing....")
+            time_tick()
+            logging.warning("========= = = = = = = new testcase")
+            # logging.warning(list_in_use[0])
+            logging.warning("checking adress")
+            time_tick()
+            logging.warning(hard_input)
+            logging.warning("checking headers...")
+            time_tick()
+            logging.warning(headers_instance)
+            log_time(tak)
+        except:
+            print "conenction failed"
+            logging.warning("cconnection faiulileds = = = = = =  fakap here = = = = = = ")
     except:
         print "nie ma co testować..."
 
