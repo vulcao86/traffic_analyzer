@@ -234,7 +234,7 @@ logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
 logging.warning('= = = = = = = = = = = = = = = = = = Program run man.')
 
 # wczytaj dane
-list_in_use = lista_adresow_wp
+list_in_use = lista_adresow
 for adres in list_in_use.items():
     print adres[1]
     hard_input = adres[1]
@@ -245,17 +245,19 @@ for adres in list_in_use.items():
         try:
             headers_instance = check_headers(r)
             logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+            logging.debug("list of links to be tested")
+            logging.debug(list_in_use)
             logging.debug("testing....")
             time_tick()
             logging.warning("========= = = = = = = new testcase")
             # logging.warning(list_in_use[0])
-            logging.warning("checking adress")
+            logging.warning("checking address")
             time_tick()
             logging.warning(hard_input)
             logging.warning("checking headers...")
             time_tick()
             logging.warning(headers_instance)
-            log_time(tak)
+            logging.warning("zalogowano nagloweczki ^^")
         except:
             print "conenction failed"
             logging.warning("cconnection faiulileds = = = = = =  fakap here = = = = = = ")
