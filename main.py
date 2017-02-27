@@ -40,52 +40,70 @@ def check_headers_nice(r, headers_to_be_checked):
 
 def check_headers(r):
     """""module for checking some headers dependencies"""
-
+    success_test_counter = 0
     try:
         r.headers['X-Served-By']
         print "['X-Served-By']", r.headers['X-Served-By']
+        success_test_counter+=1
     except Exception:
         print "x-served-by error"
     try:
         r.headers['Server']
         print "['Server']", r.headers['Server']
+        success_test_counter += 1
     except Exception:
         print "server error"
     try:
         r.headers['Connection']
         print "['Connection']", r.headers['Connection']
+        success_test_counter += 1
     except Exception:
         print "server error"
     try:
         r.headers['Cache-Control']
         print "['Cache-Control']", r.headers['Cache-Control']
+        success_test_counter += 1
     except Exception:
         print "cache-control error"
     try:
         r.headers['Date']
         print "['Date']", r.headers['Date']
+        success_test_counter += 1
     except Exception:
         print "date error"
     try:
         r.headers['Content-Type']
         print "['Content-Type']", r.headers['Content-Type']
+        success_test_counter += 1
     except Exception:
         print "content-typer error"
     try:
         r.headers['Status']
         print "['Status']", r.headers['Status']
+        success_test_counter += 1
     except Exception:
         print "Status error"
     try:
         r.headers['x-response-time']
         print "['x-response-time']", r.headers['x-response-time']
+        success_test_counter += 1
     except Exception:
         print "'x-response-time' error"
     try:
         r.headers['X-CDN']
         print "['X-CDN']", r.headers['X-CDN']
+        success_test_counter += 1
     except Exception:
         print "'X-CDN' error"
+    try:
+        r.headers['Content-Encoding']
+        print "['Content-Encoding']", r.headers['Content-Encoding']
+        success_test_counter += 1
+    except Exception:
+        print "'Content-Encoding' error"
+    print success_test_counter
+    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+    logging.warning("testy przeszlo {0} naglowkow".format(success_test_counter))
 
 
     print r.headers
@@ -263,6 +281,7 @@ for adres in list_in_use.items():
             logging.warning("cconnection faiulileds = = = = = =  fakap here = = = = = = ")
     except:
         print "nie ma co testować..."
+        logging.warning("connection failed")
 
 print "A teraz pokaze 150 pierwszych znakow z treści:\n"
 show_150(hard_input)
