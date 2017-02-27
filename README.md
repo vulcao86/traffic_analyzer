@@ -1,5 +1,9 @@
 # traffic_analyzer
 
+# ver. 0.2.1
+dodano do logowania licznik udanych testow
+jest sprawdzanych 10 naglowkow
+
 # ver. 0.2.0
 
 logowanie informacji naglowkowych odwiedzanych stron z listy
