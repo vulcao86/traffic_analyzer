@@ -29,6 +29,7 @@ def headers():
     'Content-Type'
     }
 
+
 def check_headers_nice(r, headers_to_be_checked):
     """""module for checking some headers dependencies in loop for created list of headers"""
 
@@ -41,8 +42,33 @@ def check_headers_nice(r, headers_to_be_checked):
 def check_headers(r):
     """""module for checking some headers dependencies"""
     success_test_counter = 0
+    #######################
+    received = r.headers
+    print "headers received..."
+    time_tick()
+    print received
+    time_tick()
+    for header in headers_to_be_checked:
+        print "checking ['{0}'] header...".format(header)
+        try:
+            print "{0} header present!".format(header)
+            success_test_counter += 1
+        except Exception:
+            print "{0} error in loop, this shouldn`t ever happen".format(header)
+        #
+        # logger_2 = logging.getLogger('simple_logger_2')
+        # hdlr_2 = logging.FileHandler('headers_checked.log')
+        # hdlr_2.setFormatter(formatter)
+        # logger_2.addHandler(hdlr_2)
+        #
+        # logger2.warning("header {0} tested...".format(header))
+
+    print "Odebrano {0} naglowkow".format(success_test_counter)
+    logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
+    logging.warning("w petli testy przeszlo {0} naglowkow".format(success_test_counter))
+     ################
     try:
-        r.headers['X-Served-By']
+        # r.headers['X-Served-By']
         print "['X-Served-By']", r.headers['X-Served-By']
         success_test_counter+=1
     except Exception:
@@ -103,9 +129,8 @@ def check_headers(r):
         print "'Content-Encoding' error"
     print success_test_counter
     logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
-    logging.warning("testy przeszlo {0} naglowkow".format(success_test_counter))
-
-
+    logging.warning("w makaronie testy przeszlo {0} naglowkow".format(success_test_counter))
+    print "jest czy nie ma???????????????????///////////"
     print r.headers
     return r.headers
 
@@ -180,7 +205,7 @@ headers_to_be_checked = {
     'Server',
 
     }
-
+################################# listy adresow #######################################
 lista_adresow = {
 
 'SG WP' : 'http://www.wp.pl/',
@@ -232,7 +257,7 @@ sgwp = {
 'SG WP' : 'http://www.wp.pl/'
 
 }
-
+################################# listy adresow #######################################
 # ===================== poczatek logiki programu
 
 # greet user
@@ -252,6 +277,11 @@ logging.basicConfig(filename='example.log', format='%(asctime)s %(message)s')
 logging.warning('= = = = = = = = = = = = = = = = = = Program run man.')
 
 # wczytaj dane
+#
+#
+###  tutaj podajemy liste adresow do testow
+#
+#
 list_in_use = lista_adresow
 for adres in list_in_use.items():
     print adres[1]
@@ -278,10 +308,10 @@ for adres in list_in_use.items():
             logging.warning("zalogowano nagloweczki ^^")
         except:
             print "conenction failed"
-            logging.warning("cconnection faiulileds = = = = = =  fakap here = = = = = = ")
+            logging.warning("connection failed")
     except:
         print "nie ma co testować..."
-        logging.warning("connection failed")
+        logging.warning("connectionreally failed")
 
 print "A teraz pokaze 150 pierwszych znakow z treści:\n"
 show_150(hard_input)
